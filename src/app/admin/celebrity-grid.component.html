@@ -1,0 +1,24 @@
+<table>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Info</td>
+            <td>Trained</td>
+			<td></td>
+		    <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let celebrity of celebrities">
+            <td>{{celebrity.name}}</td>
+            <td>{{celebrity.info}}</td>
+            <td>{{celebrity.trained}}</td>
+            <td>
+                <input type="button" value="Details" (click)="goToDetails(celebrity.id)">
+            </td>              
+            <td>
+                <input type="button" value="Delete">
+            </td>
+        </tr>
+    </tbody>
+</table>

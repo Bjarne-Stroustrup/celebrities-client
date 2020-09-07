@@ -1,0 +1,44 @@
+<div>
+   <div class="subtitle">Check out what celebrity are you similar to following the next three simple steps</div> 
+   <div class="row">
+       <div class="col">
+           <h4>1. Upload a photo</h4>
+            <img class="img-responsive" src="assets/images/photo.png">
+            <p>There should be only one person on the photo and the face should be clearly visible.</p>
+       </div>
+       <div class="col">
+            <h4>2. The system analyzes the face</h4>
+            <img class="img-responsive" src="assets/images/recognition.png">
+            <p>The system detects the face and analyzes what celebrities the person is similar to.</p>
+       </div>
+       <div class="col">
+        <h4>3. Enjoy the result</h4>
+        <img class="img-responsive" src="assets/images/similarity.png">
+        <p>You receive from one to many similar to the person celebrities with similarity percentage</p>
+       </div>
+   </div>   
+</div>
+
+<form [formGroup]="recognitionForm" (ngSubmit)="submit()">
+        <file-upload id="uploadUserImage" formControlName="image" required></file-upload>
+        <div  class="errors" *ngIf="recognitionForm.controls.image.errors">
+            <p *ngIf="recognitionForm.controls.image.errors.required">Please upload your image</p>
+            <p *ngIf="recognitionForm.controls.image.errors.forbiddenFileType">
+                {{recognitionForm.controls.image.errors.forbiddenFileType.errorMessage}}</p>
+            <p *ngIf="recognitionForm.controls.image.errors.exceedingFileSize">
+                {{recognitionForm.controls.image.errors.exceedingFileSize.errorMessage}}</p>  
+        </div>
+        <div class="footer">
+            <p><i>Allowed image extensions: {{allowedImageTypes.join(", ")}}</i></p>
+            <p><i>Max image size: {{maxImageSize}} bytes</i></p>
+        </div>
+    <button type="submit" [disabled]="!recognitionForm.valid">Upload</button>
+</form>
+
+<ng-container *ngIf="similarCelebrities">
+    <div id="result" *ngFor="let similarCelebrity of similarCelebrities">
+                <h4>You are {{similarCelebrity.similarity | percent}} {{similarCelebrity.name}}</h4>
+                <div>{{similarCelebrity.info}}</div>
+                <img  class="images" src="data:image/jpeg;base64,{{similarCelebrity.image}}"/>
+    </div>
+</ng-container>

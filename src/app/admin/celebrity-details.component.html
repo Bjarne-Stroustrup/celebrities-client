@@ -1,4 +1,16 @@
-<div>{{celebrityDetails.name}}</div>
-<div>{{celebrityDetails.info}}</div>
-<div>{{celebrityDetails.trained}}</div>
-<img  class="images" src={{img}}/>
+<form [formGroup]="celebrityForm" (ngSubmit)="submit()">
+    <div>
+        <label>Name</label>
+        <input formControlName="celebrityName" required/>        
+        <div class="error" *ngIf="!isControlValid('celebrityName')">Please enter a celebrity name</div>
+    </div>
+    <div>
+        <label>Info</label>
+        <textarea formControlName="celebrityInfo"></textarea>
+    </div>
+    <div>
+        <label>Avatar</label>
+        <input type="file" formControlName="celebrityAvatar"/>
+    </div>
+    <button type="submit" [disabled]="!celebrityForm.valid">Save</button>
+</form>

@@ -1,0 +1,77 @@
+@import "~bootstrap/dist/css/bootstrap.css";
+
+#main{
+    width: 1024px;
+    margin: 0 auto;
+    padding: 0px;    
+}
+
+body{
+    background-color: white;
+}
+
+.title{
+    margin: 30px 0;
+    text-align: right;
+}
+
+.subtitle{
+    margin: 30px 0;
+    text-align: center;
+}
+
+.row h4{
+    height: 60px;
+    text-align: center;
+}
+
+.row p{
+    margin-top: 15px;
+}
+
+p > i {
+    font-size: small;
+    color: grey;
+}
+
+.footer p {
+    margin: 0
+}
+
+label {
+    margin-right: 10px;
+}
+
+img{
+    margin: 0 auto;
+    display: block;
+}
+
+.row p{
+    text-align: center;
+}
+
+.errors{
+    font-size: small;
+    color: red;
+    font-weight: bold;
+}
+
+.errors p{
+    margin: 0;
+}
+
+form{
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    text-align: center;
+}
+
+#uploadUserImage{
+    padding-left: 75px;
+}
+
+#result{
+    text-align: center;
+}

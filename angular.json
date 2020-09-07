@@ -15,7 +15,8 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.json",
             "assets": ["src/assets"],
-            "aot": true
+            "aot": true,
+            "styles": ["src/styles.css"]
           }
         },
         "serve": {

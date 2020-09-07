@@ -3,6 +3,6 @@ export class CelebrityDetails{
         public id: number,
         public name: string,
         public info: string,
-        public image:  HTMLImageElement,
+        public avatarImage : string,
         public trained: boolean){}
 }

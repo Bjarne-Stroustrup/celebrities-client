@@ -1,11 +1,13 @@
 import { NgModule }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule }   from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms'
 import { HttpClientModule }   from '@angular/common/http';
+import { CommonModule } from '../common.module'
+import { CelebrityRecognitionComponent } from './celebrity-recognition.component';
 
 @NgModule({
-    imports:      [ BrowserModule, FormsModule, HttpClientModule],
-    declarations: [],
-    exports:      []
+    imports:      [ BrowserModule, ReactiveFormsModule, HttpClientModule, CommonModule ],
+    declarations: [ CelebrityRecognitionComponent],
+    exports:      [ CelebrityRecognitionComponent ]
 })
 export class UserModule { }

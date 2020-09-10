@@ -1,8 +1,7 @@
-export class CelebrityDetails{
-    constructor(
-        public id: number,
-        public name: string,
-        public info: string,
-        public avatarImage : string,
-        public trained: boolean){}
+export interface CelebrityDetails{
+        id: number,
+        name: string,
+        info: string,
+        avatarImage : string,
+        trained: boolean
 }

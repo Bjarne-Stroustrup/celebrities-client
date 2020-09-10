@@ -30,8 +30,8 @@ export class CelebrityDetailsComponent implements OnInit {
     }
 
     private getCelebrityById(){
-        this.celebrityService.getCelebrity(this.id).subscribe((data: CelebrityDetails) => {
-            this.celebrityDetails = data;
+        this.celebrityService.getCelebrity(this.id).subscribe((resp) => {
+            this.celebrityDetails = resp.body;
             this.createForm();
         })
     }

@@ -1,7 +1,6 @@
-export class SimilarCelebrity{
-    constructor(
-        public name: string,
-        public similarity: number,
-        public info: string,
-        public image : string){}
+export interface SimilarCelebrity{
+        name: string,
+        similarity: number,
+        info: string,
+        image: string
 }

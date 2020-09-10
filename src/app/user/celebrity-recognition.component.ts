@@ -37,9 +37,8 @@ export class CelebrityRecognitionComponent implements OnInit {
         formData.append('image', image, image.name);
 
         this.similarCelebrities = Array<SimilarCelebrity>();
-        this.celebrityService.recognizeFace(formData)
-          .subscribe((data: SimilarCelebrity[]) => {
-            this.similarCelebrities = data;
-        });
+        this.celebrityService.recognizeFace(formData).subscribe((resp) => {
+                            this.similarCelebrities = resp.body; 
+                        });
     }
 }

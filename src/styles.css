@@ -75,3 +75,7 @@ form{
 #result{
     text-align: center;
 }
+
+.confirmation-popup >  mat-dialog-container {
+    margin: auto;
+}

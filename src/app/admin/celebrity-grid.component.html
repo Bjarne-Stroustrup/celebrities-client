@@ -5,21 +5,21 @@
     </div>
 <button>Add</button>
 <table class="table table-striped">
-    <thead>
-        <tr>
-            <td>Name</td>
-            <td>Info</td>
-            <td>Trained</td>
-			<td></td>
-		    <td></td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let celebrity of celebrities">
-            <td>{{celebrity.name}}</td>
-            <td>{{celebrity.info}}</td>
-            <td>{{celebrity.trained}}</td>
-            <td>
+    <thead>
+        <tr>
+            <td>Name</td>
+            <td>Info</td>
+            <td>Trained</td>
+            <td></td>
+            <td></td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let celebrity of celebrities">
+            <td>{{celebrity.name}}</td>
+            <td>{{celebrity.info}}</td>
+            <td>{{celebrity.trained}}</td>
+            <td>
                 <button (click)="goToDetails(celebrity.id)">Details</button>
             </td>              
             <td>
@@ -28,6 +28,6 @@
             <td>
                 <button>Train</button>
             </td>
-        </tr>
-    </tbody>
+        </tr>
+    </tbody>
 </table>

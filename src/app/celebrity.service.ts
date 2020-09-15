@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { GridCelebrity } from './admin/grid-celebrity';
 import { CelebrityDetails } from './admin/celebrity-details';
 import { SimilarCelebrity } from './user/similar-celebrity';
@@ -25,5 +25,10 @@ export class CelebrityService{
 
     recognizeFace(formData: FormData){
         return this.httpCleint.post<Array<SimilarCelebrity>>(`${this.userEndpoint}`, formData, { observe: 'response' });
+    }
+
+    doesCelebrityNameExist(celebrityName: string){
+        let params = new HttpParams().set('celebrityName', celebrityName);
+        return this.httpCleint.get<boolean>(`${this.adminEndpoint}/validation/doesCelebrityNameExist`, { params: params });
     }
 }

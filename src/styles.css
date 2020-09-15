@@ -77,5 +77,14 @@ form{
 }
 
 .confirmation-popup >  mat-dialog-container {
-    margin: auto;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    position: absolute;
+    top: 20em;
+    left: 20em;
+    height: 20em;
+    width: 30em;
+    box-shadow: 0 0 5px rgb(0, 0, 0, 0.27);
 }

@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {CelebrityService} from '../celebrity.service';
 import {CelebrityDetails} from './celebrity-details';
+import { uniqueCelebrityNameValidator } from '../validators/uniqueCelebrityNameValidator';
+import { allowedFileTypeValidator } from '../validators/allowedFileTypeValidator';
+import { maxFileSizeValidator } from '../validators/maxFileSizeValidator';
 import {ActivatedRoute} from '@angular/router';
-import {Subscription } from 'rxjs';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
-import { ThrowStmt } from '@angular/compiler';
 
 @Component({
     selector: 'celebrity-details',
@@ -17,16 +18,38 @@ export class CelebrityDetailsComponent implements OnInit {
     constructor(private celebrityService: CelebrityService,
         private formBuilder: FormBuilder,
         private activateRoute: ActivatedRoute){
-        this.subscription = activateRoute.params.subscribe(params=>this.id=params['id']);
+        activateRoute.params.subscribe(params=>this.id=params['id']);
     }
- 
+
+    @ViewChild('readonlyTemplate', {static: false}) readonlyTemplate: TemplateRef<any>;
+    @ViewChild('editTemplate', {static: false}) editTemplate: TemplateRef<any>;
+
+    isEditMode: boolean = false;
     id: number;
     celebrityDetails: CelebrityDetails;
     celebrityForm: FormGroup;
-    private subscription: Subscription;
+    allowedImageTypes: Array<string> = ["jpeg", "jpg", "ico", "png", "bmp", "gif", "tif", "tiff", "webp"];
+    maxImageSize: number = 5242880;
     
     ngOnInit() {
-        this.getCelebrityById()
+        this.getCelebrityById();
+    }
+
+    onEdit(){
+        this.isEditMode=true;
+        this.celebrityForm.patchValue({celebrityName: this.celebrityDetails.name,
+            celebrityInfo: this.celebrityDetails.info});
+        this.loadTemplate();
+    }
+
+    onCancel(){
+        this.isEditMode=false;
+        this.loadTemplate();
+    }
+
+    submit(){
+        this.isEditMode = false;
+        this.loadTemplate();
     }
 
     private getCelebrityById(){
@@ -37,19 +60,17 @@ export class CelebrityDetailsComponent implements OnInit {
     }
 
     private createForm(){
-        this.celebrityForm = this.formBuilder.group({
-             
-            "celebrityName": [this.celebrityDetails.name, [Validators.required]],
-            "celebrityInfo": [this.celebrityDetails.info],
-            "celebrityAvatar": [this.celebrityDetails.avatarImage, [Validators.required]]
-        });
+        this.celebrityForm = this.formBuilder.group({      
+            "celebrityName": [null, [Validators.required], [uniqueCelebrityNameValidator(this.celebrityDetails.name, this.celebrityService)], {updateOn: 'blur'}],
+            "celebrityInfo": [null],
+            "celebrityAvatar": [null, [allowedFileTypeValidator(this.allowedImageTypes), maxFileSizeValidator(this.maxImageSize)]]});
     }
 
-    isControlValid(controlName: string) : boolean{
-        const control = this.celebrityForm.controls[controlName];
-        return control.valid && control.touched;
-    }
+    private loadTemplate(){
+        if (this.isEditMode){
+            return this.editTemplate;
+        }
 
-    submit(){
+        return this.readonlyTemplate;
     }
 }

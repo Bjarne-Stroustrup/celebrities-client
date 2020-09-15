@@ -1,4 +1,4 @@
-import {ValidatorFn, FormControl } from '@angular/forms';
+import { ValidatorFn, FormControl } from '@angular/forms';
 
 export function allowedFileTypeValidator(allowedTypes: string[]): ValidatorFn {
     return function (control: FormControl) {

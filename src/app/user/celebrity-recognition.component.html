@@ -37,8 +37,8 @@
 
 <ng-container *ngIf="similarCelebrities">
     <div id="result" *ngFor="let similarCelebrity of similarCelebrities">
-                <h4>You are {{similarCelebrity.similarity | percent}} {{similarCelebrity.name}}</h4>
-                <div>{{similarCelebrity.info}}</div>
-                <img  class="images" src="data:image/jpeg;base64,{{similarCelebrity.image}}"/>
+        <h4>You are {{similarCelebrity.similarity | percent}} {{similarCelebrity.name}}</h4>
+        <div>{{similarCelebrity.info}}</div>
+        <img  class="images" src="data:image/jpeg;base64,{{similarCelebrity.image}}"/>
     </div>
 </ng-container>

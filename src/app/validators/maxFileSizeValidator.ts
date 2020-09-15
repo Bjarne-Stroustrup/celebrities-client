@@ -1,4 +1,4 @@
-import {ValidatorFn, FormControl } from '@angular/forms';
+import { ValidatorFn, FormControl } from '@angular/forms';
 
 export function maxFileSizeValidator(maxSize: number): ValidatorFn {
     return function (control: FormControl) {

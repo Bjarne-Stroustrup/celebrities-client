@@ -23,6 +23,10 @@ export class CelebrityService{
         return this.httpCleint.delete(`${this.adminEndpoint}/${id}`, { observe: 'response' });
     }
 
+    updateCelebrity(id: number, formData: FormData){
+        return this.httpCleint.put<CelebrityDetails>(`${this.adminEndpoint}/${id}`, formData, { headers: {'Content-Type': 'multipart/form-data'} });
+    }
+
     recognizeFace(formData: FormData){
         return this.httpCleint.post<Array<SimilarCelebrity>>(`${this.userEndpoint}`, formData, { observe: 'response' });
     }

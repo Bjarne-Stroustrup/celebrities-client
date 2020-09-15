@@ -5,15 +5,15 @@ import { CelebrityService } from '../celebrity.service';
 
 export function uniqueCelebrityNameValidator(currentCelebrityName: string, celebrityService: CelebrityService): AsyncValidatorFn {
   return function (control: FormControl) {
-    const enterdCelebrityName = control.value;
+    const enteredCelebrityName = control.value;
 
-    if (currentCelebrityName === enterdCelebrityName){
+    if (currentCelebrityName === enteredCelebrityName){
       return of(null);
     }
 
-      return celebrityService.doesCelebrityNameExist(enterdCelebrityName).pipe(
+      return celebrityService.doesCelebrityNameExist(enteredCelebrityName).pipe(
         map(doesExist => (
-          doesExist ? { uniqueCelebrityName: {errorMessage: `Celebrity with name ${enterdCelebrityName} already exists`}} : null)
+          doesExist ? { uniqueCelebrityName: {errorMessage: `Celebrity with name ${enteredCelebrityName} already exists`}} : null)
           ));
         };
 }

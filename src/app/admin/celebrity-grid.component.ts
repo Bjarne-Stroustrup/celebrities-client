@@ -51,12 +51,12 @@ export class CelebrityGridComponent implements OnInit {
 
     private delete(id: number) {
       this.celebrityService.deleteCelebrity(id).subscribe((resp) => {
-          if (resp.status == 200){
-              const index = this.celebrities.findIndex(c => c.id == id);
+          if (resp.status === 200){
+              const index = this.celebrities.findIndex(c => c.id === id);
               if (index > -1) {
               this.celebrities.splice(index, 1);
           }
           }
-      });;
+      });
   }
 }

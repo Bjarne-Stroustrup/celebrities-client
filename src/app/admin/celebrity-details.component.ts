@@ -48,8 +48,15 @@ export class CelebrityDetailsComponent implements OnInit {
     }
 
     submit(){
-        this.isEditMode = false;
-        this.loadTemplate();
+        const formData = this.BuildFormData();
+
+        this.celebrityService.updateCelebrity(this.id, formData).subscribe((resp) => {
+            //if(resp.status === 200){
+            this.isEditMode = false;
+            this.celebrityDetails = resp;
+            this.loadTemplate();
+        //}
+        });
     }
 
     private getCelebrityById(){
@@ -72,5 +79,20 @@ export class CelebrityDetailsComponent implements OnInit {
         }
 
         return this.readonlyTemplate;
+    }
+
+    private BuildFormData(){
+        const formData = new FormData();
+
+        const celebrityName = this.celebrityForm.get('celebrityName').value
+        formData.append("name", celebrityName);
+
+        const celebrityInfo = this.celebrityForm.get('celebrityInfo').value
+        formData.append("info", celebrityInfo);
+        
+        const celebrityAvatar = this.celebrityForm.get('celebrityAvatar').value
+        formData.append("avatar", celebrityAvatar, celebrityAvatar.name);
+
+        return formData;
     }
 }

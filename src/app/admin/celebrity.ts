@@ -1,4 +1,4 @@
-export interface CelebrityDetails{
+export interface Celebrity{
         id: number,
         name: string,
         info: string,

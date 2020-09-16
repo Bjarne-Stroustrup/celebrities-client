@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { GridCelebrity } from './admin/grid-celebrity';
-import { CelebrityDetails } from './admin/celebrity-details';
+import { Celebrity } from './admin/celebrity';
 import { SimilarCelebrity } from './user/similar-celebrity';
     
 @Injectable()
@@ -16,7 +16,11 @@ export class CelebrityService{
     }
 
     getCelebrity(id: number){
-        return this.httpCleint.get<CelebrityDetails>(`${this.adminEndpoint}/${id}`, { observe: 'response' });
+        return this.httpCleint.get<Celebrity>(`${this.adminEndpoint}/${id}`, { observe: 'response' });
+    }
+
+    addCelebrity(formData: FormData){
+        return this.httpCleint.post<Celebrity>(`${this.adminEndpoint}`, formData, { observe: 'response' });
     }
 
     deleteCelebrity(id: number){
@@ -24,7 +28,7 @@ export class CelebrityService{
     }
 
     updateCelebrity(id: number, formData: FormData){
-        return this.httpCleint.put<CelebrityDetails>(`${this.adminEndpoint}/${id}`, formData, { headers: {'Content-Type': 'multipart/form-data'} });
+        return this.httpCleint.put<Celebrity>(`${this.adminEndpoint}/${id}`, formData, { headers: {'Content-Type': 'multipart/form-data'} });
     }
 
     recognizeFace(formData: FormData){

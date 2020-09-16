@@ -1,7 +1,7 @@
 import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {CelebrityService} from '../celebrity.service';
-import {CelebrityDetails} from './celebrity-details';
+import { Celebrity } from './celebrity';
 import { uniqueCelebrityNameValidator } from '../validators/uniqueCelebrityNameValidator';
 import { allowedFileTypeValidator } from '../validators/allowedFileTypeValidator';
 import { maxFileSizeValidator } from '../validators/maxFileSizeValidator';
@@ -26,7 +26,7 @@ export class CelebrityDetailsComponent implements OnInit {
 
     isEditMode: boolean = false;
     id: number;
-    celebrityDetails: CelebrityDetails;
+    celebrity: Celebrity;
     celebrityForm: FormGroup;
     allowedImageTypes: Array<string> = ["jpeg", "jpg", "ico", "png", "bmp", "gif", "tif", "tiff", "webp"];
     maxImageSize: number = 5242880;
@@ -37,8 +37,8 @@ export class CelebrityDetailsComponent implements OnInit {
 
     onEdit(){
         this.isEditMode=true;
-        this.celebrityForm.patchValue({celebrityName: this.celebrityDetails.name,
-            celebrityInfo: this.celebrityDetails.info});
+        this.celebrityForm.patchValue({celebrityName: this.celebrity.name,
+            celebrityInfo: this.celebrity.info});
         this.loadTemplate();
     }
 
@@ -53,7 +53,7 @@ export class CelebrityDetailsComponent implements OnInit {
         this.celebrityService.updateCelebrity(this.id, formData).subscribe((resp) => {
             //if(resp.status === 200){
             this.isEditMode = false;
-            this.celebrityDetails = resp;
+            this.celebrity = resp;
             this.loadTemplate();
         //}
         });
@@ -61,14 +61,14 @@ export class CelebrityDetailsComponent implements OnInit {
 
     private getCelebrityById(){
         this.celebrityService.getCelebrity(this.id).subscribe((resp) => {
-            this.celebrityDetails = resp.body;
+            this.celebrity = resp.body;
             this.createForm();
         })
     }
 
     private createForm(){
         this.celebrityForm = this.formBuilder.group({      
-            "celebrityName": [null, [Validators.required], [uniqueCelebrityNameValidator(this.celebrityDetails.name, this.celebrityService)], {updateOn: 'blur'}],
+            "celebrityName": [null, [Validators.required], [uniqueCelebrityNameValidator(this.celebrity.name, this.celebrityService)], {updateOn: 'blur'}],
             "celebrityInfo": [null],
             "celebrityAvatar": [null, [allowedFileTypeValidator(this.allowedImageTypes), maxFileSizeValidator(this.maxImageSize)]]});
     }

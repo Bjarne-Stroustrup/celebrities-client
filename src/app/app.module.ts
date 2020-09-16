@@ -7,9 +7,11 @@ import { CelebrityRecognitionComponent } from './user/celebrity-recognition.comp
 import { AdminModule }   from './admin/admin.module';
 import { CelebrityGridComponent } from './admin/Celebrity-grid.component';
 import { CelebrityDetailsComponent }   from './admin/celebrity-details.component';
+import { AddCelebrityComponent } from './admin/add-celebrity.component';
 
 const appRoutes: Routes =[
     { path: 'admin/celebrities', component: CelebrityGridComponent },
+    { path: 'admin/add-celebrity', component: AddCelebrityComponent },
     { path: 'admin/celebrity-details/:id', component: CelebrityDetailsComponent },
     { path: '', component: CelebrityRecognitionComponent }
 ];

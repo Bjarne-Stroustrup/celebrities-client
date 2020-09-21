@@ -18,7 +18,7 @@ export class CelebrityDetailsComponent implements OnInit {
     constructor(private celebrityService: CelebrityService,
         private formBuilder: FormBuilder,
         private activateRoute: ActivatedRoute){
-        activateRoute.params.subscribe(params=>this.id=params['id']);
+        activateRoute.params.subscribe(params => this.id = params['id']);
     }
 
     @ViewChild('readonlyTemplate', {static: false}) readonlyTemplate: TemplateRef<any>;
@@ -32,13 +32,19 @@ export class CelebrityDetailsComponent implements OnInit {
     maxImageSize: number = 5242880;
     
     ngOnInit() {
-        this.getCelebrityById();
+        this.getCelebrity();
+        this.createForm();
     }
 
     onEdit(){
-        this.isEditMode=true;
+        this.isEditMode = true;
+
         this.celebrityForm.patchValue({celebrityName: this.celebrity.name,
             celebrityInfo: this.celebrity.info});
+
+        this.celebrityForm.controls['celebrityName'].setAsyncValidators([uniqueCelebrityNameValidator(this.celebrityService, this.celebrity.name)]);
+        this.celebrityForm.controls['celebrityName'].updateValueAndValidity();
+        
         this.loadTemplate();
     }
 
@@ -51,29 +57,28 @@ export class CelebrityDetailsComponent implements OnInit {
         const formData = this.BuildFormData();
 
         this.celebrityService.updateCelebrity(this.id, formData).subscribe((resp) => {
-            //if(resp.status === 200){
-            this.isEditMode = false;
-            this.celebrity = resp;
-            this.loadTemplate();
-        //}
+            if(resp.status === 200){
+                this.isEditMode = false;
+                this.celebrity = resp.body;
+                this.loadTemplate();
+            }
         });
     }
 
-    private getCelebrityById(){
+    private getCelebrity(){
         this.celebrityService.getCelebrity(this.id).subscribe((resp) => {
             this.celebrity = resp.body;
-            this.createForm();
         })
     }
 
     private createForm(){
         this.celebrityForm = this.formBuilder.group({      
-            "celebrityName": [null, [Validators.required], [uniqueCelebrityNameValidator(this.celebrity.name, this.celebrityService)], {updateOn: 'blur'}],
+            "celebrityName": [null, [Validators.required], null, {updateOn: 'blur'}],
             "celebrityInfo": [null],
             "celebrityAvatar": [null, [allowedFileTypeValidator(this.allowedImageTypes), maxFileSizeValidator(this.maxImageSize)]]});
     }
 
-    private loadTemplate(){
+    loadTemplate(){
         if (this.isEditMode){
             return this.editTemplate;
         }
@@ -84,14 +89,20 @@ export class CelebrityDetailsComponent implements OnInit {
     private BuildFormData(){
         const formData = new FormData();
 
+        formData.append("id", this.id.toString());
+
         const celebrityName = this.celebrityForm.get('celebrityName').value
         formData.append("name", celebrityName);
 
         const celebrityInfo = this.celebrityForm.get('celebrityInfo').value
-        formData.append("info", celebrityInfo);
+        if(celebrityInfo !== null){
+            formData.append("info", celebrityInfo);
+        }
         
         const celebrityAvatar = this.celebrityForm.get('celebrityAvatar').value
+        if(celebrityAvatar !== null){
         formData.append("avatar", celebrityAvatar, celebrityAvatar.name);
+        }
 
         return formData;
     }

@@ -61,6 +61,10 @@ img{
     margin: 0;
 }
 
+.form-errors p{
+    white-space: nowrap;
+}
+
 form{
     margin-left: auto;
     margin-right: auto;
@@ -68,7 +72,7 @@ form{
     text-align: center;
 }
 
-#uploadUserImage{
+#imageUpload{
     padding-left: 75px;
 }
 
@@ -87,4 +91,28 @@ form{
     height: 20em;
     width: 30em;
     box-shadow: 0 0 5px rgb(0, 0, 0, 0.27);
+}
+
+table{
+    margin-top: 30px;
+}
+
+.right > label{
+    width: 100%;
+    text-align: right;
+}
+
+.right > button{
+    float: right;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.left > input,
+.left > textarea,
+.left > file-upload,
+.left > button{
+    float: left;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }

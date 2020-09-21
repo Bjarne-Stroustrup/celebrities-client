@@ -35,6 +35,10 @@ export class CelebrityGridComponent implements OnInit {
     goToAddCelebrity() {
       this.router.navigate(['admin/add-celebrity']);
   }
+
+  goToTraining(id: number) {
+    this.router.navigate(['admin/train-celebrity', id]);
+  }
  
     confirmDeleting(id: number): void {
       const celebrity = this.celebrities.find(c => c.id === id);

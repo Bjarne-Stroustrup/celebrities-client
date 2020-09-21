@@ -11,13 +11,12 @@
 </ng-template>
 
 <ng-template #editTemplate>
-<input type="button" value="Cancel" (click)="onCancel()">
 <form [formGroup]="celebrityForm" (ngSubmit)="submit()">
     <div>
         <label>Name</label>
         <input formControlName="celebrityName" required/>        
     </div>
-    <div class="errors" *ngIf="celebrityForm.controls.celebrityName.errors">
+    <div class="errors form-errors" *ngIf="celebrityForm.controls.celebrityName.errors">
         <p *ngIf="celebrityForm.controls.celebrityName.errors.required">Please enter a celebrity name</p>
         <p *ngIf="celebrityForm.controls.celebrityName.errors.uniqueCelebrityName">
             {{celebrityForm.controls.celebrityName.errors.uniqueCelebrityName.errorMessage}}
@@ -31,12 +30,13 @@
     <label>Avatar</label>
     <file-upload formControlName="celebrityAvatar"></file-upload>
     </div>
-    <div class="errors" *ngIf="celebrityForm.controls.celebrityAvatar.errors">
+    <div class="errors form-errors" *ngIf="celebrityForm.controls.celebrityAvatar.errors">
         <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType">
             {{celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType.errorMessage}}</p>
         <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize">
             {{celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize.errorMessage}}</p>  
     </div>
     <button type="submit" [disabled]="!celebrityForm.valid">Save</button>
+    <input type="button" value="Cancel" (click)="onCancel()">
 </form>
 </ng-template>

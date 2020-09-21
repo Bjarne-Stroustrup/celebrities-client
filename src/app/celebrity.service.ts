@@ -28,15 +28,23 @@ export class CelebrityService{
     }
 
     updateCelebrity(id: number, formData: FormData){
-        return this.httpCleint.put<Celebrity>(`${this.adminEndpoint}/${id}`, formData, { headers: {'Content-Type': 'multipart/form-data'} });
+        return this.httpCleint.put<Celebrity>(`${this.adminEndpoint}/${id}`, formData, { observe: 'response' });
     }
 
-    recognizeFace(formData: FormData){
-        return this.httpCleint.post<Array<SimilarCelebrity>>(`${this.userEndpoint}`, formData, { observe: 'response' });
+    addFaceExample(id: number, formData: FormData){
+        return this.httpCleint.post(`${this.adminEndpoint}/${id}`, formData, { observe: 'response' });
+    }
+
+    getCelebrityExampleCount(id: number){
+        return this.httpCleint.get<number>(`${this.adminEndpoint}/celebrityExampleCount/${id}`, { observe: 'response' });
     }
 
     doesCelebrityNameExist(celebrityName: string){
         let params = new HttpParams().set('celebrityName', celebrityName);
         return this.httpCleint.get<boolean>(`${this.adminEndpoint}/validation/doesCelebrityNameExist`, { params: params });
+    }
+
+    recognizeFace(formData: FormData){
+        return this.httpCleint.post<Array<SimilarCelebrity>>(`${this.userEndpoint}`, formData, { observe: 'response' });
     }
 }

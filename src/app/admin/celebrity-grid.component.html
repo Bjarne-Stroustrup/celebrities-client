@@ -1,7 +1,6 @@
 <div>
     <p>Here is a page where you can manage celebrities. To add a new one click on Add button.</p>
-    <p>Then you need to train the celebrity in order the system could recognize the face.</p>
-    <p>Trainig can be perfomed immediately after adding the celebrity or later from the grid or from Details page.</p>
+    <p>Then you need to train the celebrity in order the system could recognize the face, this can be done from the grid.</p>
     </div>
 <button (click)="goToAddCelebrity()">Add</button>
 <table class="table table-striped">
@@ -26,7 +25,7 @@
                 <button mat-button (click)="confirmDeleting(celebrity.id)">Delete</button>
             </td>
             <td>
-                <button>Train</button>
+                <button (click)="goToTraining(celebrity.id)">Train</button>
             </td>
         </tr>
     </tbody>

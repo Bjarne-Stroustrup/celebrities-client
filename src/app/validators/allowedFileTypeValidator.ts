@@ -4,7 +4,10 @@ export function allowedFileTypeValidator(allowedTypes: string[]): ValidatorFn {
     return function (control: FormControl) {
       const file = control.value;
       if ( file ) {
-        const extension = file.name.split('.')[1].toLowerCase();
+
+        const fileNameArray = file.name.split('.');
+        const extension = fileNameArray[fileNameArray.length - 1].toLowerCase();
+        
         allowedTypes = allowedTypes.map(t => t.toLowerCase());
 
         if (!allowedTypes.includes(extension)) {

@@ -1,9 +1,10 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { Router } from '@angular/router';
 import {CelebrityService} from '../celebrity.service';
-import { Celebrity } from './celebrity';
 import { allowedFileTypeValidator } from '../validators/allowedFileTypeValidator';
 import { maxFileSizeValidator } from '../validators/maxFileSizeValidator';
+import { uniqueCelebrityNameValidator } from '../validators/uniqueCelebrityNameValidator';
 
 @Component({
     selector: 'add-celebrity',
@@ -14,7 +15,7 @@ import { maxFileSizeValidator } from '../validators/maxFileSizeValidator';
 export class AddCelebrityComponent implements OnInit {
     
     constructor(private celebrityService: CelebrityService,
-        private formBuilder: FormBuilder){}
+        private formBuilder: FormBuilder, private router: Router){}
 
     id: number;
     celebrityForm: FormGroup;
@@ -30,13 +31,17 @@ export class AddCelebrityComponent implements OnInit {
 
         this.celebrityService.addCelebrity(formData).subscribe((resp) => {
             if(resp.status === 200){ 
-                alert("yeeeeeaaahh");          
+                this.goToCelebritiesGrid();      
             }});
+    }
+
+    onCancel(){
+        this.goToCelebritiesGrid();
     }
 
     private createForm(){
         this.celebrityForm = this.formBuilder.group({      
-            "celebrityName": [null, [Validators.required]],
+            "celebrityName": [null, [Validators.required], [uniqueCelebrityNameValidator(this.celebrityService)], {updateOn: 'blur'}],
             "celebrityInfo": [null],
             "celebrityAvatar": [null, [allowedFileTypeValidator(this.allowedImageTypes), maxFileSizeValidator(this.maxImageSize)]]});
     }
@@ -48,11 +53,17 @@ export class AddCelebrityComponent implements OnInit {
         formData.append("name", celebrityName);
 
         const celebrityInfo = this.celebrityForm.get('celebrityInfo').value
-        formData.append("info", celebrityInfo);
+        if (celebrityInfo !== null){
+            formData.append("info", celebrityInfo);
+        }
         
         const celebrityAvatar = this.celebrityForm.get('celebrityAvatar').value
         formData.append("avatar", celebrityAvatar, celebrityAvatar.name);
 
         return formData;
+    }
+
+    private goToCelebritiesGrid() {
+        this.router.navigate(['admin/celebrities']);
     }
 }

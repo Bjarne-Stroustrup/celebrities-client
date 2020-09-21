@@ -1,27 +1,51 @@
 <form [formGroup]="celebrityForm" (ngSubmit)="submit()">
-    <div>
-        <label>Name</label>
-        <input formControlName="celebrityName" required/>        
-    </div>
-    <div class="errors" *ngIf="celebrityForm.controls.celebrityName.errors">
+    <div class="container">
+    <div class="row">
+        <div class="col right">
+            <label>Name</label>
+        </div>
+        <div class="col left">
+            <input formControlName="celebrityName" required/>
+                <div class="col errors form-errors" *ngIf="celebrityForm.controls.celebrityName.errors">
         <p *ngIf="celebrityForm.controls.celebrityName.errors.required">Please enter a celebrity name</p>
         <p *ngIf="celebrityForm.controls.celebrityName.errors.uniqueCelebrityName">
             {{celebrityForm.controls.celebrityName.errors.uniqueCelebrityName.errorMessage}}
         </p>
+    </div> 
+        </div>       
     </div>
-    <div>
-        <label>Info</label>
-        <textarea formControlName="celebrityInfo"></textarea>
+
+    <div class="row">
+        <div class="col right">
+            <label>Info</label>
+        </div>
+        <div class="col left">
+            <textarea formControlName="celebrityInfo"></textarea>
+        </div>
     </div>
-    <div>
-    <label>Avatar</label>
-    <file-upload formControlName="celebrityAvatar" required></file-upload>
+
+    <div class="row">
+        <div class="col right">
+            <label>Avatar</label>
+        </div>
+        <div class="col left">
+            <file-upload formControlName="celebrityAvatar" required></file-upload>
+            <div class="col errors form-errors" *ngIf="celebrityForm.controls.celebrityAvatar.errors">
+                <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType">
+                    {{celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType.errorMessage}}</p>
+                <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize">
+                    {{celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize.errorMessage}}</p>  
+            </div>
+        </div>
     </div>
-    <div class="errors" *ngIf="celebrityForm.controls.celebrityAvatar.errors">
-        <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType">
-            {{celebrityForm.controls.celebrityAvatar.errors.forbiddenFileType.errorMessage}}</p>
-        <p *ngIf="celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize">
-            {{celebrityForm.controls.celebrityAvatar.errors.exceedingFileSize.errorMessage}}</p>  
+
+    <div class="row">
+        <div class="col right">
+            <button type="submit" [disabled]="!celebrityForm.valid">Save</button>
+        </div>
+        <div class="col left">
+            <button (click)="onCancel()">Cancel</button>
+        </div>
     </div>
-    <button type="submit" [disabled]="!celebrityForm.valid">Save</button>
+    </div>
 </form>

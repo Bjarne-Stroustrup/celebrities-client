@@ -3,11 +3,11 @@ import { map } from 'rxjs/operators';
 import {of} from 'rxjs';
 import { CelebrityService } from '../celebrity.service';
 
-export function uniqueCelebrityNameValidator(currentCelebrityName: string, celebrityService: CelebrityService): AsyncValidatorFn {
+export function uniqueCelebrityNameValidator(celebrityService: CelebrityService, currentCelebrityName: string = null): AsyncValidatorFn {
   return function (control: FormControl) {
     const enteredCelebrityName = control.value;
-
-    if (currentCelebrityName === enteredCelebrityName){
+    
+    if (currentCelebrityName !== null && currentCelebrityName === enteredCelebrityName){
       return of(null);
     }
 

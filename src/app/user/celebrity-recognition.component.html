@@ -20,7 +20,7 @@
 </div>
 
 <form [formGroup]="recognitionForm" (ngSubmit)="submit()">
-        <file-upload id="uploadUserImage" formControlName="image" required></file-upload>
+        <file-upload id="imageUpload" formControlName="image" required></file-upload>
         <div  class="errors" *ngIf="recognitionForm.controls.image.errors">
             <p *ngIf="recognitionForm.controls.image.errors.required">Please upload your image</p>
             <p *ngIf="recognitionForm.controls.image.errors.forbiddenFileType">

@@ -1,0 +1,21 @@
+<div *ngIf="celebrity">
+    <h4>{{celebrity.name}}</h4>
+    <div *ngIf="celebrity.trained">Celebrity is trained, the number of image examples of the face added is {{faceExamplesCount}}.</div>
+    <div *ngIf="!celebrity.trained">Celebrity is not trained, please upload image example of the celebrity's face.</div>
+    <div><i>Note: The more celebrity image examples added the better face recognition will work.</i></div>
+</div>
+<form [formGroup]="trainCelebrityForm" (ngSubmit)="submit()">
+        <file-upload id="imageUpload" formControlName="celebrityImage" required></file-upload>
+        <div class="errors" *ngIf="trainCelebrityForm.controls.celebrityImage.errors">
+            <p *ngIf="trainCelebrityForm.controls.celebrityImage.errors.required">Please upload your image</p>
+            <p *ngIf="trainCelebrityForm.controls.celebrityImage.errors.forbiddenFileType">
+                {{trainCelebrityForm.controls.celebrityImage.errors.forbiddenFileType.errorMessage}}</p>
+            <p *ngIf="trainCelebrityForm.controls.celebrityImage.errors.exceedingFileSize">
+                {{trainCelebrityForm.controls.celebrityImage.errors.exceedingFileSize.errorMessage}}</p>  
+        </div>
+        <div class="footer">
+            <p><i>Allowed image extensions: {{allowedImageTypes.join(", ")}}</i></p>
+            <p><i>Max image size: {{maxImageSize}} bytes</i></p>
+        </div>
+    <button type="submit" [disabled]="!trainCelebrityForm.valid">Upload</button>
+</form>

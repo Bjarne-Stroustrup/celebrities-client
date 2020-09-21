@@ -6,13 +6,15 @@ import { UserModule }   from './user/user.module';
 import { CelebrityRecognitionComponent } from './user/celebrity-recognition.component';
 import { AdminModule }   from './admin/admin.module';
 import { CelebrityGridComponent } from './admin/Celebrity-grid.component';
-import { CelebrityDetailsComponent }   from './admin/celebrity-details.component';
 import { AddCelebrityComponent } from './admin/add-celebrity.component';
+import { CelebrityDetailsComponent }   from './admin/celebrity-details.component';
+import { TrainCelebrityComponent }   from './admin/train-celebrity.component';
 
 const appRoutes: Routes =[
     { path: 'admin/celebrities', component: CelebrityGridComponent },
     { path: 'admin/add-celebrity', component: AddCelebrityComponent },
     { path: 'admin/celebrity-details/:id', component: CelebrityDetailsComponent },
+    { path: 'admin/train-celebrity/:id', component: TrainCelebrityComponent },
     { path: '', component: CelebrityRecognitionComponent }
 ];
 

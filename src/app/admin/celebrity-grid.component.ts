@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './authentication-service';
 import { ConfirmationPopupComponent } from '../confirmation-popup.component';
 import { CelebrityService } from '../celebrity.service';
 import { GridCelebrity } from './grid-celebrity';
@@ -8,14 +9,18 @@ import { GridCelebrity } from './grid-celebrity';
 @Component({
     selector: 'celebrities-grid', 
     templateUrl: './celebrity-grid.component.html',
-    providers: [CelebrityService]
+    providers: [AuthenticationService, CelebrityService]
 }) 
 export class CelebrityGridComponent implements OnInit {
           
     celebrities: Array<GridCelebrity>;
        
-    constructor(private celebrityService: CelebrityService, private dialog: MatDialog, private router: Router) {
-        this.celebrities = new Array<GridCelebrity>();
+    constructor(private celebrityService: CelebrityService, private dialog: MatDialog, private authenticationService: AuthenticationService,
+      private router: Router) {
+        if (!this.authenticationService.isLoggedIn()){
+          this.router.navigate(['/admin/login']);
+        }
+        this.celebrities = new Array<GridCelebrity>();       
         }
        
     ngOnInit() {
@@ -46,8 +51,8 @@ export class CelebrityGridComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmationPopupComponent, {
         height: '400px',
         width: '600px',
-          data: `Are you sure you want to delete ${celebrity.name}?`,
-          panelClass: 'confirmation-popup'
+        data: `Are you sure you want to delete ${celebrity.name}?`,
+        panelClass: 'confirmation-popup'
         });
         
         dialogRef.afterClosed().subscribe(result => {

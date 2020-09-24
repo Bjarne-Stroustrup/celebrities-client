@@ -1,4 +1,4 @@
-import {Component, OnInit } from '@angular/core';
+import {Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { Router } from '@angular/router';
 import {CelebrityService} from '../celebrity.service';
@@ -12,20 +12,18 @@ import { uniqueCelebrityNameValidator } from '../validators/uniqueCelebrityNameV
     providers: [CelebrityService]
 })
 
-export class AddCelebrityComponent implements OnInit {
+export class AddCelebrityComponent{
     
     constructor(private celebrityService: CelebrityService,
-        private formBuilder: FormBuilder, private router: Router){}
+        private formBuilder: FormBuilder, private router: Router){
+            this.createForm();
+        }
 
     id: number;
     celebrityForm: FormGroup;
     allowedImageTypes: Array<string> = ["jpeg", "jpg", "ico", "png", "bmp", "gif", "tif", "tiff", "webp"];
     maxImageSize: number = 5242880;
     
-    ngOnInit() {
-        this.createForm();
-    }
-
     submit(){
         const formData = this.BuildFormData();
 

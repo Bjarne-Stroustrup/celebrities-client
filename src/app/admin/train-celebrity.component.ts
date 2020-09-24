@@ -1,5 +1,5 @@
-import {Component, OnInit, TemplateRef, ViewChild} from '@angular/core';
-import { FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import {CelebrityService} from '../celebrity.service';
 import { Celebrity } from './celebrity';
 import { allowedFileTypeValidator } from '../validators/allowedFileTypeValidator';
@@ -56,7 +56,9 @@ export class TrainCelebrityComponent implements OnInit {
 
     private getCelebrity(){
         this.celebrityService.getCelebrity(this.id).subscribe((resp) => {
-            this.celebrity = resp.body;
+            if(resp.status === 200){
+                this.celebrity = resp.body;
+            }
         })
     }
 

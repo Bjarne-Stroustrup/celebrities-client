@@ -18,7 +18,8 @@ export class CelebrityDetailsComponent implements OnInit {
     constructor(private celebrityService: CelebrityService,
         private formBuilder: FormBuilder,
         private activateRoute: ActivatedRoute){
-        activateRoute.params.subscribe(params => this.id = params['id']);
+        activateRoute.params.subscribe(params => this.id = params['id']);       
+        this.createForm();
     }
 
     @ViewChild('readonlyTemplate', {static: false}) readonlyTemplate: TemplateRef<any>;
@@ -33,7 +34,6 @@ export class CelebrityDetailsComponent implements OnInit {
     
     ngOnInit() {
         this.getCelebrity();
-        this.createForm();
     }
 
     onEdit(){
